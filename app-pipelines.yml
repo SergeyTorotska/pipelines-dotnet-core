@@ -1,0 +1,23 @@
+trigger:
+- master
+
+pool:
+  name: AKS
+  vmImage: ubuntu-latest
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    version: '5.0.x'
+    includePreviewVersion: true
+
+- task: UseDotNet@2
+  inputs:
+    version: '3.0.x'
+    includePreviewVersion: true
+    
+
+
+stages:
+- template: stages/build.yaml
+- template: stages/deploy.yml

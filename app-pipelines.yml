@@ -2,7 +2,6 @@ trigger:
 - master
 
 pool:
-  name: AKS
   vmImage: ubuntu-latest
 
 stages:

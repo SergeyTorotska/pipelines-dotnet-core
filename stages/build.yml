@@ -1,5 +1,5 @@
 stages:
-- stage:
+- stage: build app
   jobs:
   - job: buildjob
     steps:   

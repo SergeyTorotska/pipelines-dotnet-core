@@ -1,12 +1,12 @@
+
 stages:
 - stage:
   jobs:
   - job: buildjob
     steps:   
     - task: DotNetCoreCLI@2
-      DisplayName: build
+      displayName: 'build'
       inputs:
-        coomand: build
+        command: build
         projects: '**/*.csproj'
         arguments: '--configuration $(BuildConfiguration)'
-

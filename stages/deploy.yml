@@ -4,13 +4,6 @@
    - job: DeployJob
      steps: 
      - task: DotNetCoreCLI@2
-       displayName: 'Install dotnetsay'
-       inputs:
-         command: custom
-         custom: tool
-         arguments: 'install -g dotnetsay'
-
-     - task: DotNetCoreCLI@2
        inputs:
          command: publish
          publishWebProjects: True

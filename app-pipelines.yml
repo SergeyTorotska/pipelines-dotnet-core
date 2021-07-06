@@ -19,5 +19,5 @@ stages:
         version: '3.0.x'
         includePreviewVersion: True
     
-  - template: stages/build.yml
-  - template: stages/deploy.yml
+- template: stages/build.yml
+- template: stages/deploy.yml

@@ -12,12 +12,12 @@ stages:
     - task: UseDotNet@2
       inputs:
         version: '5.0.x'
-        includePreviewVersion: true
+        includePreviewVersion: True
 
     - task: UseDotNet@2
       inputs:
         version: '3.0.x'
-        includePreviewVersion: true
+        includePreviewVersion: True
     
   - template: stages/build.yml
   - template: stages/deploy.yml

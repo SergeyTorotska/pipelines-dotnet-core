@@ -1,0 +1,62 @@
+trigger:
+- main
+
+pool:
+  name: Azure Pipelines
+  vmImage: windows-latest
+
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+- stage: Install
+  jobs:
+  - job: InstallJob
+    steps:
+         
+    - task: UseDotNet@2
+      displayName: Install .NET Core SDK'
+      inputs:
+        version: '5.0.x'
+          
+- stage: Build
+  jobs:
+  - job: BuildJob
+    steps:
+      
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+      displayName: 'dotnet build $(buildConfiguration)'
+   
+- stage: 'Publish'          
+  jobs:
+  - job: PublishJob
+    steps:
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: true
+        arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory)'
+        zipAfterPublish: false
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(build.ArtifactStagingDirectory)' 
+        artifactType: 'pipeline'
+        artifactName: 'drop'
+    
+- stage: Deploy
+  jobs:
+    
+  - job: DeployJob 
+    pool:
+      vmImage: 'windows-latest' 
+    steps:
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: 'Azure subscription 1 (f016713d-47fd-4917-a2c7-c2805377c59c)'
+        AppName: 'aap7776767'
+        package: '$(build.ArtifactStagingDirectory)'
+
